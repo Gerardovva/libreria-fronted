@@ -21,6 +21,12 @@
                         <router-link to="/books" class="nav-link custom">Lista de libros</router-link> <!-- Cambia 1 por el ID adecuado -->
                     </li>
                     <li class="nav-item">
+                        <router-link to="/create-category" class="nav-link custom">Crear categoria</router-link> <!-- Cambia 1 por el ID adecuado -->
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/create-author" class="nav-link custom">Crear autor</router-link> <!-- Cambia 1 por el ID adecuado -->
+                    </li>
+                    <li class="nav-item">
                         <router-link to="/" class="nav-link custom" @click.prevent="logout">Logout</router-link>
                     </li>
                 </ul>

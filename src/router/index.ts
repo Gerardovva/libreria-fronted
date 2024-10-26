@@ -5,6 +5,8 @@ import Register from '@/views/Register.vue';
 import CreateBook from '@/views/CreateBook.vue';
 import BookList from '@/views/BookList.vue';
 import BookDetail from '@/views/BookDetail.vue'; // Asegúrate de importar el componente
+import CreateAuthor from '@/views/CreateAuthor.vue';
+import CreateCategory from '@/views/CreateCategory.vue';
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', component: Home },
@@ -17,6 +19,16 @@ const routes: Array<RouteRecordRaw> = [
     name: 'bookDetail',
     component: BookDetail,
     props: true, // Permite pasar el id como prop al componente
+  },
+  {
+    path: '/create-author',
+    name: 'CreateAuthor',
+    component: CreateAuthor,
+  },
+  {
+    path: '/create-category',
+    name: 'CreateCategory',
+    component: CreateCategory,
   },
 ];
 

@@ -8,12 +8,14 @@
           <th>Título</th>
           <th>Imagen</th>
           <th>Descripción</th>
+          <th>Categoría</th>
+          <th>Autores</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr v-if="books.length === 0">
-          <td colspan="5">No hay libros disponibles.</td>
+          <td colspan="7">No hay libros disponibles.</td>
         </tr>
         <tr v-for="book in books" :key="book.id">
           <td>{{ book.id }}</td>
@@ -22,13 +24,17 @@
             <img :src="book.imagen" alt="Imagen de {{ book.titulo }}" style="width: 100px; height: auto;" />
           </td>
           <td>{{ book.descripcion }}</td>
+          <td>{{ book.categoria?.nombre || 'Sin categoría' }}</td>
+          <td>
+            <ul>
+              <li v-for="autor in book.autores" :key="autor.id">{{ autor.nombre }}</li>
+            </ul>
+          </td>
           <td>
             <div class="container g-5">
               <button @click="deleteBook(book.id)" class="btn btn-danger me-2">Eliminar</button>
-              <router-link :to="{ name: 'bookDetail', params: { id: book.id } }" class="btn btn-info">Ver
-                Detalles</router-link>
+              <router-link :to="{ name: 'bookDetail', params: { id: book.id } }" class="btn btn-info">Ver Detalles</router-link>
             </div>
-
           </td>
         </tr>
       </tbody>
@@ -39,12 +45,23 @@
 <script lang="ts">
 import { ref, onMounted } from 'vue';
 
-// Definición de la interfaz Book
+interface Autor {
+  id: number;
+  nombre: string;
+}
+
+interface Categoria {
+  id: number;
+  nombre: string;
+}
+
 interface Book {
   id: number;
   titulo: string;
   imagen: string;
   descripcion: string;
+  categoria?: Categoria;
+  autores: Autor[];
 }
 
 export default {
@@ -103,5 +120,10 @@ export default {
 .table img {
   width: 50px;
   height: auto;
+}
+
+ul {
+  padding-left: 20px;
+  list-style-type: disc;
 }
 </style>

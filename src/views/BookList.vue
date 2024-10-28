@@ -26,10 +26,12 @@
           <td>{{ book.descripcion }}</td>
           <td>{{ book.categoria?.nombre || 'Sin categoría' }}</td>
           <td>
-            <ul>
-              <li v-for="autor in book.autores" :key="autor.id">{{ autor.nombre }}</li>
-            </ul>
-          </td>
+  <ul v-if="book.autores && book.autores.length > 0">
+    <li v-for="autor in book.autores" :key="autor.id">{{ autor.nombre }}</li>
+  </ul>
+  <span v-else>Sin autores</span>
+</td>
+
           <td>
             <div class="container g-5">
               <button @click="deleteBook(book.id)" class="btn btn-danger me-2">Eliminar</button>

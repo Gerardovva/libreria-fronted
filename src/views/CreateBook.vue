@@ -124,39 +124,39 @@ export default {
     };
 
     const submit = async () => {
-      const formData = new FormData();
-      formData.append('titulo', data.titulo);
-      formData.append('descripcion', data.descripcion);
-      if (data.imagen) {
-        formData.append('imagen', data.imagen);
+  const formData = new FormData();
+  formData.append('titulo', data.titulo);
+  formData.append('descripcion', data.descripcion);
+  if (data.imagen) {
+    formData.append('imagen', data.imagen);
+  }
+
+  formData.append('categorias', data.categoriaId);
+  formData.append('editorial', data.editorialId);
+  formData.append('fechaPublicacion', data.fechaPublicacion);
+  
+  // Convertir `autorIds` a una cadena separada por comas
+  formData.append('autor', data.autorIds.join(','));
+
+  try {
+    const token = localStorage.getItem('token');
+    await axios.post('http://localhost:8000/api/libros/', formData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
       }
+    });
+    await router.push('/books'); 
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('Error al crear el libro:', error.response.data);
+      alert('Error al crear el libro: ' + (error.response.data.message || 'Error desconocido'));
+    } else {
+      console.error('Error desconocido:', error);
+      alert('Error al crear el libro: Error desconocido');
+    }
+  }
+};
 
-      formData.append('categorias', data.categoriaId);
-      formData.append('editorial', data.editorialId); // Agrega la editorial seleccionada
-      formData.append('fechaPublicacion', data.fechaPublicacion); // Agrega la fecha de publicación
-
-      data.autorIds.forEach(autorId => {
-        formData.append('autor[]', autorId); 
-      });
-
-      try {
-        const token = localStorage.getItem('token');
-        await axios.post('http://localhost:8000/api/libros/', formData, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          }
-        });
-        await router.push('/books'); 
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          console.error('Error al crear el libro:', error.response.data);
-          alert('Error al crear el libro: ' + (error.response.data.message || 'Error desconocido'));
-        } else {
-          console.error('Error desconocido:', error);
-          alert('Error al crear el libro: Error desconocido');
-        }
-      }
-    };
 
     onMounted(() => {
       fetchCategoriesAndAuthors();

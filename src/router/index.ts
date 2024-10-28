@@ -7,6 +7,8 @@ import BookList from '@/views/BookList.vue';
 import BookDetail from '@/views/BookDetail.vue'; // Asegúrate de importar el componente
 import CreateAuthor from '@/views/CreateAuthor.vue';
 import CreateCategory from '@/views/CreateCategory.vue';
+import Editorial from '@/views/CreateEditorial.vue'; // Asegúrate de importar el componente de editorial
+
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', component: Home },
@@ -29,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/create-category',
     name: 'CreateCategory',
     component: CreateCategory,
+  },
+  {
+    path: '/create-editorial', // Ruta para crear una nueva editorial
+    name: 'CreateEditorial',
+    component: Editorial, // Usa el componente Editorial aquí
   },
 ];
 
